@@ -260,8 +260,10 @@ def execute_take(item_id):
                 current_room["items"].pop(i)
             else:
                 print("You are carrying too much!")
+                return
         else:
             print("You cannot take that.")
+            return
     
 
 def execute_drop(item_id):
@@ -278,6 +280,7 @@ def execute_drop(item_id):
             carrying_mass -= item["mass"]
         else:
             print("You cannot drop that.")
+            return
     
 
 def execute_command(command):
