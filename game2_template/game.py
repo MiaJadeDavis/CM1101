@@ -252,8 +252,12 @@ def execute_take(item_id):
     """
     global current_room, inventory, carrying_mass
 
+    valid = False
+
     for i, item in enumerate(current_room["items"]):
         if item_id == item["id"]:
+            valid = True
+            
             if carrying_mass + item["mass"] < max_mass:
                 carrying_mass += item["mass"]
                 inventory.append(current_room["items"][i])
@@ -261,9 +265,9 @@ def execute_take(item_id):
             else:
                 print("You are carrying too much!")
                 return
-        else:
-            print("You cannot take that.")
-            return
+            
+    if not valid:
+        print("You cannot take that.")
     
 
 def execute_drop(item_id):
@@ -273,14 +277,18 @@ def execute_drop(item_id):
     """
     global current_room, inventory, carrying_mass
 
+    valid = False
+    
     for i, item in enumerate(inventory):
         if item_id == item["id"]:
+            valid = True
+            
             current_room["items"].append(inventory[i])
             inventory.pop(i)
             carrying_mass -= item["mass"]
-        else:
-            print("You cannot drop that.")
-            return
+            
+    if not valid:
+        print("You cannot drop that.")
     
 
 def execute_command(command):
